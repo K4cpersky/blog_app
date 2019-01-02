@@ -3,7 +3,7 @@ class ArticlesController < ApplicationController
   before_action :find_params, only: [:edit, :show, :destroy, :update]
 
   def index
-    @articles = Article.all
+    @articles = Article.paginate(page: params[:page], per_page: 5)
   end
 
   def new
