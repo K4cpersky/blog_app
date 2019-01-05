@@ -63,7 +63,7 @@ class UsersController < ApplicationController
   end
 
   def require_admin
-    if logged_in? && !current_user.admin?
+    if !logged_in? || (logged_in? && !current_user.admin?)
       flash[:notice] = 'Only admin users can perform that action'
       redirect_to root_path
     end

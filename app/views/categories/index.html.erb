@@ -1,5 +1,7 @@
 <h1 align="center">Listing all Categories</h1>
 <div align="center">
+<%= will_paginate @categories, renderer: BootstrapPagination::Rails %>
+<div align="center">
   <% @categories.each do |cat| %>
     <ul class="listing">
       <div class="row">
@@ -11,4 +13,6 @@
       </div>
     </ul>
   <% end %>
+</div>
+<%= will_paginate @categories, renderer: BootstrapPagination::Rails %>
 </div>
