@@ -34,7 +34,7 @@ class CategoriesController < ApplicationController
     if @category.update(category_params)
       flash[:notice] = "Category name was succesfully updated"
       redirect_to category_path(category)
-    else
+    end
   end
 
   private
