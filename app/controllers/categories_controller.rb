@@ -1,6 +1,7 @@
-class CategoriesController < ApplicationController
+# frozen_string_literal: true
 
-  before_action :require_admin, except: [:index, :show]
+class CategoriesController < ApplicationController
+  before_action :require_admin, except: %i[index show]
 
   def index
     @categories = Category.paginate(page: params[:page], per_page: 5)
@@ -13,7 +14,7 @@ class CategoriesController < ApplicationController
   def create
     @category = Category.new(categories_params)
     if @category.save
-      flash[:notice] = "Category was succesfully created"
+      flash[:notice] = 'Category was succesfully created'
       redirect_to categories_path
     else
       render 'new'
@@ -22,7 +23,7 @@ class CategoriesController < ApplicationController
 
   def show
     @category = Category.find(params[:id])
-    @category_articles = @category.articles.paginate(page:params[:page], per_page: 5)
+    @category_articles = @category.articles.paginate(page: params[:page], per_page: 5)
   end
 
   def edit
@@ -32,7 +33,7 @@ class CategoriesController < ApplicationController
   def update
     @category = Category.find(params[:id])
     if @category.update(category_params)
-      flash[:notice] = "Category name was succesfully updated"
+      flash[:notice] = 'Category name was succesfully updated'
       redirect_to category_path(@category)
     else
       render 'edit'
@@ -40,9 +41,11 @@ class CategoriesController < ApplicationController
   end
 
   private
+
   def categories_params
     params.require(:category).permit(:name)
   end
+
   def require_admin
     if !logged_in? || (logged_in? && !current_user.admin?)
       flash[:notice] = 'Only admin users can perform that action'
